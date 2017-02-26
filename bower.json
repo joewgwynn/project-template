@@ -1,6 +1,7 @@
 {
   "name": "scaffold",
   "devDependencies": {
-    "normalize.css": "~3.0.3"
+    "normalize.css": "~3.0.3",
+    "jquery": "3.1.1"
   }
 }

@@ -7,8 +7,9 @@ var autoprefixer = require('gulp-autoprefixer');
 var plumber     = require('gulp-plumber');
 var jade        = require('gulp-jade');
 var uglify      = require('gulp-uglify');
-var sourcemaps  = require('gulp-sourcemaps');
-var jshint      = require('gulp-jshint');
+var concat      = require('gulp-concat');
+var rename      = require('gulp-rename');
+
 
 // browser-sync task for starting the server.
 gulp.task('browser-sync', function() {
@@ -31,13 +32,12 @@ gulp.task('less', function() {
 });
 
 gulp.task('js', function() {
-  return gulp.src('js/src/*.js')
+  return gulp.src(['bower_components/jquery/dist/jquery.min.js','js/src/*.js'])
     .pipe(plumber())
-    .pipe(jshint())
-    .pipe(jshint.reporter('jshint-stylish'))
-    .pipe(sourcemaps.init())
     .pipe(uglify())
-    .pipe(sourcemaps.write('maps'))
+    .pipe(concat('monocle-bundle.js'))
+    .pipe(gulp.dest('js/build'))
+    .pipe(rename('scripts.js'))
     .pipe(gulp.dest('js/dist'))
     .pipe(reload({ stream: true }))
   ;
